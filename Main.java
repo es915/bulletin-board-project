@@ -13,14 +13,16 @@ public class Main {
 
 // static을 쓰지 않기 위해 클래스를 따로 만듦
 class Board {
+	ArrayList<Integer> nums = new ArrayList<>();
 	// 게시물 제목들만 담아둔 리스트
 	ArrayList<String> titles = new ArrayList<>();
 	// 게시물 내용들만 담아둔 리스트
 	ArrayList<String> bodies = new ArrayList<>();
+	int lastestArticleNum = 1;
 
 	public void printArticles() {
 		for(int i = 0; i < titles.size(); i++) {
-			System.out.printf("번호 : %d\n", i + 1);
+			System.out.printf("번호 : %d\n", nums.get(i));
 			System.out.printf("제목 : %s\n", titles.get(i));
 			System.out.println("========================");
 		}
@@ -42,7 +44,8 @@ class Board {
 
 				// 게시물 추가 명령어
 			} else if (command.equals("add")) {
-
+				nums.add(lastestArticleNum);
+				
 				System.out.print("제목을 입력해주세요 : ");
 				String title = sc.nextLine();
 				System.out.print("내용을 입력해주세요 : ");
@@ -51,7 +54,8 @@ class Board {
 				titles.add(title);
 				bodies.add(body);
 				System.out.println("게시물이 등록되었습니다.");
-
+				lastestArticleNum++;
+				
 				// 게시물 리스트 출력 명령어
 			} else if (command.equals("list")) {
 				printArticles();
@@ -80,6 +84,25 @@ class Board {
 
 					printArticles();
 
+				}
+			} else if(command.equals("delete")) {
+				
+				System.out.print("삭제할 게시물 번호 :");
+				// 문자열로 입력받고 정수로 변환
+				int no = Integer.parseInt(sc.nextLine())-1;
+
+				// 있는 번호인지 체크
+				if (no < 0 || no >= titles.size()) {
+					System.out.println("없는 게시물입니다.");
+
+					// 있으면 내용 수정후 리스트 명령어 실행
+				} else {
+					nums.remove(no);
+					titles.remove(no);
+					bodies.remove(no);
+					System.out.println("삭제 되었습니다");
+					
+					printArticles();
 				}
 			}
 		}
