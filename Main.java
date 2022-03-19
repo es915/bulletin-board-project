@@ -13,15 +13,18 @@ public class Main {
 
 // static을 쓰지 않기 위해 클래스를 따로 만듦
 class Board {
+	// 식별 번호를 담아둘 리스트
 	ArrayList<Integer> nums = new ArrayList<>();
 	// 게시물 제목들만 담아둔 리스트
 	ArrayList<String> titles = new ArrayList<>();
 	// 게시물 내용들만 담아둔 리스트
 	ArrayList<String> bodies = new ArrayList<>();
+	// 게시물 고유 식별 번호
 	int lastestArticleNum = 1;
 
 	public void printArticles() {
 		for(int i = 0; i < titles.size(); i++) {
+			// 고유 식별 넘버를 출력
 			System.out.printf("번호 : %d\n", nums.get(i));
 			System.out.printf("제목 : %s\n", titles.get(i));
 			System.out.println("========================");
@@ -85,6 +88,8 @@ class Board {
 					printArticles();
 
 				}
+				
+				// 게시물 삭제 명령어
 			} else if(command.equals("delete")) {
 				
 				System.out.print("삭제할 게시물 번호 :");
@@ -97,6 +102,7 @@ class Board {
 
 					// 있으면 내용 수정후 리스트 명령어 실행
 				} else {
+					// 고유 식별 넘버까지 삭제
 					nums.remove(no);
 					titles.remove(no);
 					bodies.remove(no);
