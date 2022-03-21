@@ -13,12 +13,15 @@ public class Main {
 
 // static을 쓰지 않기 위해 클래스를 따로 만듦
 class Board {
+	
 	// 식별 번호를 담아둘 리스트
 	ArrayList<Integer> nums = new ArrayList<>();
 	// 게시물 제목들만 담아둔 리스트
 	ArrayList<String> titles = new ArrayList<>();
 	// 게시물 내용들만 담아둔 리스트
 	ArrayList<String> bodies = new ArrayList<>();
+
+	ArrayList<Article> articles = new ArrayList<>();
 	// 게시물 고유 식별 번호
 	int lastestArticleNum = 1;
 
@@ -47,15 +50,15 @@ class Board {
 
 				// 게시물 추가 명령어
 			} else if (command.equals("add")) {
-				nums.add(lastestArticleNum);
 				
 				System.out.print("제목을 입력해주세요 : ");
 				String title = sc.nextLine();
 				System.out.print("내용을 입력해주세요 : ");
 				String body = sc.nextLine();
-
-				titles.add(title);
-				bodies.add(body);
+				
+				Article article = new Article(lastestArticleNum, title, body);
+				articles.add(article);
+	
 				System.out.println("게시물이 등록되었습니다.");
 				lastestArticleNum++;
 				
@@ -70,7 +73,7 @@ class Board {
 				int no = Integer.parseInt(sc.nextLine())-1;
 
 				// 있는 번호인지 체크
-				if (no < 0 || no >= titles.size()) {
+				if (no < 0 || no >= articles.size()) {
 					System.out.println("없는 게시물입니다.");
 
 					// 있으면 내용 수정후 리스트 명령어 실행
@@ -113,4 +116,48 @@ class Board {
 			}
 		}
 	}
+}
+
+class Article {
+	private int idx;
+	private String title;
+	private String body;
+	
+	public Article() {
+		
+	}
+
+	public Article(int idx, String title, String body) {
+		super();
+		this.idx = idx;
+		this.title = title;
+		this.body = body;
+	}
+
+	public int getIdx() {
+		return idx;
+	}
+
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	public String getBody() {
+		return body;
+	}
+
+	public void setBody(String body) {
+		this.body = body;
+	}
+	
+	
+	
 }
