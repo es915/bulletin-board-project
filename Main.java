@@ -21,6 +21,7 @@ class Board {
 	// 게시물 내용들만 담아둔 리스트
 	ArrayList<String> bodies = new ArrayList<>();
 
+	// 게시물객체(제목, 내용을 한 묶음으로)를 담아둘 리스트
 	ArrayList<Article> articles = new ArrayList<>();
 	// 게시물 고유 식별 번호
 	int lastestArticleNum = 1;
@@ -64,8 +65,10 @@ class Board {
 				
 				int no = Integer.parseInt(sc.nextLine());
 				
+				// 번호를 받고 그 번호에 해당하는 게시물을 article에 담음
 				Article article = getArticleByIdx(no);
 				
+				// article이 null아닐시(있는 번호의 게시물) 내용 실행
 				if(article!=null) {
 					System.out.print("새제목 : ");
 					String newTitle = sc.nextLine();
@@ -84,7 +87,7 @@ class Board {
 				
 				System.out.print("삭제할 게시물 번호 :");
 				// 문자열로 입력받고 정수로 변환
-				int no = Integer.parseInt(sc.nextLine())-1;
+				int no = Integer.parseInt(sc.nextLine());
 				
 				Article article = getArticleByIdx(no);
 				
@@ -99,13 +102,16 @@ class Board {
 		}
 	}
 	
+	// 객체의 번호를 입력받고 그 번호에 대한 게시물읋 보여주는 함수
 	public Article getArticleByIdx(int idx) {
+		// 입력 받은 번호의 객체가 있을시 그 객체를 리턴
 		for(int i=0; i<articles.size(); i++) {
 			Article article = articles.get(i);
 			if(article.getIdx()==idx) {
 				return article;
 			}
 		}
+		// 없으면 null 리턴
 		return null;
 	}
 	
@@ -122,6 +128,7 @@ class Board {
 	}
 }
 
+// 게시물 객체
 class Article {
 	private int idx;
 	private String title;
