@@ -25,14 +25,6 @@ class Board {
 	// 게시물 고유 식별 번호
 	int lastestArticleNum = 1;
 
-	public void printArticles() {
-		for(int i = 0; i < titles.size(); i++) {
-			// 고유 식별 넘버를 출력
-			System.out.printf("번호 : %d\n", nums.get(i));
-			System.out.printf("제목 : %s\n", titles.get(i));
-			System.out.println("========================");
-		}
-	}
 	public void run() {
 		
 		Scanner sc = new Scanner(System.in);
@@ -69,51 +61,63 @@ class Board {
 				// 게시물 수정 명령어
 			} else if (command.equals("update")) {
 				System.out.print("수정할 게시물 번호 :");
-				// 문자열로 입력받고 정수로 변환
-				int no = Integer.parseInt(sc.nextLine())-1;
-
-				// 있는 번호인지 체크
-				if (no < 0 || no >= articles.size()) {
-					System.out.println("없는 게시물입니다.");
-
-					// 있으면 내용 수정후 리스트 명령어 실행
-				} else {
+				
+				int no = Integer.parseInt(sc.nextLine());
+				
+				Article article = getArticleByIdx(no);
+				
+				if(article!=null) {
 					System.out.print("새제목 : ");
 					String newTitle = sc.nextLine();
 					System.out.print("새내용 : ");
 					String newBody = sc.nextLine();
-
-					titles.set(no, newTitle);
-					bodies.set(no, newBody);
-
-					System.out.println("수정이 완료되었습니다.");
-
+					
+					article.setTitle(newTitle);
+					article.setBody(newBody);
+					
 					printArticles();
-
+				} else {
+					System.out.println("없는 게시물입니다.");
 				}
-				
-				// 게시물 삭제 명령어
+								// 게시물 삭제 명령어
 			} else if(command.equals("delete")) {
 				
 				System.out.print("삭제할 게시물 번호 :");
 				// 문자열로 입력받고 정수로 변환
 				int no = Integer.parseInt(sc.nextLine())-1;
-
-				// 있는 번호인지 체크
-				if (no < 0 || no >= titles.size()) {
-					System.out.println("없는 게시물입니다.");
-
-					// 있으면 내용 수정후 리스트 명령어 실행
-				} else {
-					// 고유 식별 넘버까지 삭제
-					nums.remove(no);
-					titles.remove(no);
-					bodies.remove(no);
-					System.out.println("삭제 되었습니다");
-					
+				
+				Article article = getArticleByIdx(no);
+				
+				if(article!=null) {
+					articles.remove(article);
 					printArticles();
+				} else {
+					System.out.println("없는 게시물입니다.");
 				}
+				
 			}
+		}
+	}
+	
+	public Article getArticleByIdx(int idx) {
+		for(int i=0; i<articles.size(); i++) {
+			Article article = articles.get(i);
+			if(article.getIdx()==idx) {
+				return article;
+			}
+		}
+		return null;
+	}
+	
+	public void printArticles() {
+		for(int i = 0; i < articles.size(); i++) {
+ 		
+			Article article = articles.get(i);
+			
+			// 고유 식별 넘버를 출력
+			System.out.printf("번호 : %d\n", article.getIdx());
+			System.out.printf("제목 : %s\n", article.getTitle());
+			System.out.println("========================");
 		}
 	}
 }
