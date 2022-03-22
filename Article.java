@@ -1,5 +1,6 @@
 package board;
 
+// 게시물 겍체
 class Article {
 	private int idx;
 	private String title;
@@ -8,7 +9,7 @@ class Article {
 	public Article() {
 		
 	}
-
+	
 	public Article(int idx, String title, String body) {
 		super();
 		this.idx = idx;
