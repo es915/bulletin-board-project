@@ -28,6 +28,16 @@ class Board {
 
 	public void run() {
 		
+		// 실행 하자마자 추가되는 리스트
+		// 테스트 케이스 추가
+		Article a1 = new Article(1, "제목1", "내용1");
+		Article a2 = new Article(2, "제목2", "내용2");
+		Article a3 = new Article(3, "제목3", "내용3");
+		
+		articles.add(a1);
+		articles.add(a2);
+		articles.add(a3);
+		
 		Scanner sc = new Scanner(System.in);
 
 		// 명령어를 계속 받기위한 while 
